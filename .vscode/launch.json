@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug who-wants-to-be-millonaire",
+            "program": "${workspaceFolder:who-wants-to-be-millonaire}/.build/debug/who-wants-to-be-millonaire",
+            "args": [],
+            "cwd": "${workspaceFolder:who-wants-to-be-millonaire}",
+            "preLaunchTask": "swift: Build Debug who-wants-to-be-millonaire"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Release who-wants-to-be-millonaire",
+            "program": "${workspaceFolder:who-wants-to-be-millonaire}/.build/release/who-wants-to-be-millonaire",
+            "args": [],
+            "cwd": "${workspaceFolder:who-wants-to-be-millonaire}",
+            "preLaunchTask": "swift: Build Release who-wants-to-be-millonaire"
+        }
+    ]
+}

@@ -34,7 +34,6 @@ class LevelView{
                     return
                 }
                 delegate?.userDidAnswer(userAnswer)
-                print("Level 1")
             }else {
                 print("Option is not available\n" + 
                       "Please input the number of the answer\n" + 

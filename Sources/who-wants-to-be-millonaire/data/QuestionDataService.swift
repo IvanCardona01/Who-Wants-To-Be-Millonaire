@@ -4,9 +4,11 @@ import FoundationNetworking
 class QuestionDataService {
     static let instance: QuestionDataService = QuestionDataService()
 
-    public func getAllQuestions(completion: @escaping (Result) -> ()) {
+    func getAllQuestions(completion: @escaping (Result) -> ()) {
         
-        let url = URL(string: "https://opentdb.com/api.php?amount=5&category=18&difficulty=medium&type=multiple")!
+        guard let url = URL(string: "https://opentdb.com/api.php?amount=5&category=18&difficulty=medium&type=multiple") else{
+            return
+        }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
@@ -19,17 +21,15 @@ class QuestionDataService {
             }
             do{
                 let decodeData: Result = try JSONDecoder().decode(Result.self, from: data)
-                print(decodeData)
                 completion(decodeData)
             }catch {
                 return
             }
           
-        }.resume()
+        }
+
+        task.resume()
 
     }
-
-
-    //UserDefaults
     
 }

@@ -39,7 +39,7 @@ class HomeViewController{
                     return
                 }
             }
-        }while exit == false
+        }while !exit
     }
 
     func optionIsValid(option: String) -> Bool{

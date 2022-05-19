@@ -15,37 +15,37 @@ class LevelView{
         var endLevel = false
         repeat{
             ViewUtilities.clearScreem()
+            
             var answers:[String] = [question.correct_answer]
             for answer in question.incorrect_answers{
                 answers.append(answer)
             }
             answers.shuffle()
+
             printQuestion(availableAnswer: answers)
             guard let selectedOption = readLine() else {
                 return
             }
             if optionIsValid(option: selectedOption){
-                endLevel = true
+
                 guard let selectedAnswer = Int(selectedOption) else {
                     return
                 }
                 let userAnswer = answers[selectedAnswer-1]
-                guard let _ = readLine() else{
-                    return
-                }
                 delegate?.userDidAnswer(userAnswer)
+                endLevel = true
+
             }else {
+
                 print("Option is not available\n" + 
                       "Please input the number of the answer\n" + 
                       "Press enter to continue\n")
                 guard let _ = readLine() else {
                     return
                 }
+
             }
-        }while endLevel == false
-        guard let _ = readLine() else{
-            return
-        }
+        }while !endLevel
     }
 
     func printQuestion(availableAnswer: [String]){

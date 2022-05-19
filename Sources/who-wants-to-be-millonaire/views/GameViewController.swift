@@ -40,7 +40,7 @@ class GameViewController {
                     return
                 }
             }
-        }while exit == false
+        }while !exit
     }
 
     func printLevels(){

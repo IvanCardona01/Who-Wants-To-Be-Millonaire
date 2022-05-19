@@ -10,8 +10,9 @@ class Presenter{
         questionDataService.getAllQuestions(){ (result) in
             let res = result
             self.questions = res.results
+
         }
-        guard let _ = readLine() else {
+        guard let _ = readLine() else{
             throw Errors.InvalidJsonResponseTime
         }
         guard let validateQuestions = questions else {

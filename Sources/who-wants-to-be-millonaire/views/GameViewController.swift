@@ -7,13 +7,8 @@ class GameViewController {
     var game = Game.instance
     
     func startGame(){
-        do{
-            try? game.questions = presenter.getAllQuestions()
-        }catch Errors.InvalidJsonResponseTime{
-            print("invalid json response time")
-            return
-        }
         var exit = false
+        setGameQuestions();
         repeat{
             printLevels()
             guard let selectedOption = readLine() else {
@@ -27,12 +22,15 @@ class GameViewController {
                 }else if isExit{
                     exit = true
                 }else{
+                    setGameQuestions();
+                    Thread.sleep(forTimeInterval: 0.001)
+                    
                     guard let questions = game.questions else {
                         return
                     }
                     let levelQuestion = questions[game.levelActual]
-                    levelView.loadLevelView(question: levelQuestion)
                     levelView.delegate = self
+                    levelView.loadLevelView(question: levelQuestion)
                 }
             }else{
                 print("Option is not available")
@@ -41,6 +39,15 @@ class GameViewController {
                 }
             }
         }while !exit
+    }
+
+    func setGameQuestions(){
+        do{
+            try? self.game.questions = self.presenter.getAllQuestions()
+        }catch Errors.InvalidJsonResponseTime{
+            print("invalid json response time")
+            return
+        }
     }
 
     func printLevels(){
@@ -81,12 +88,12 @@ class GameViewController {
 }
 
 extension GameViewController: LevelViewControllerDelegate{
-    func userDidAnswer(_ answer: String) {
+    func userDidAnswer(_ userAnswer: String) {
         guard let questions = game.questions else{
             return 
         }
-        let actualLevelanswer = questions[game.levelActual].correct_answer
-        let answerIsCorrect = answer == actualLevelanswer
+        let actualLevelCorrectAnswer = questions[game.levelActual].correct_answer
+        let answerIsCorrect = userAnswer == actualLevelCorrectAnswer
         if answerIsCorrect{ 
             game.tickCorrectAnswer()
         }else{

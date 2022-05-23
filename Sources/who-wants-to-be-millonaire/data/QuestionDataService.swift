@@ -19,15 +19,12 @@ class QuestionDataService {
             guard let data = data else {
                 return
             }
-            do{
-                let decodeData: Result = try JSONDecoder().decode(Result.self, from: data)
+            DispatchQueue.global().async {
+                let decodeData: Result = try! JSONDecoder().decode(Result.self, from: data)
                 completion(decodeData)
-            }catch {
-                return
             }
           
         }
-
         task.resume()
 
     }

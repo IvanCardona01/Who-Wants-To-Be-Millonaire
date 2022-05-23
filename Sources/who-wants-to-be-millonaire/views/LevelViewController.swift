@@ -2,7 +2,7 @@ import Foundation
 
 protocol LevelViewControllerDelegate: AnyObject {
 
-    func userDidAnswer(_ answer:String)
+    func userDidAnswer(_ userAnswer:String);
 }
 
 class LevelView{
@@ -34,7 +34,6 @@ class LevelView{
                 let userAnswer = answers[selectedAnswer-1]
                 delegate?.userDidAnswer(userAnswer)
                 endLevel = true
-
             }else {
 
                 print("Option is not available\n" + 
